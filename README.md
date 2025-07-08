@@ -10,6 +10,14 @@ A lightweight Python notification app that integrates with Claude Code to send r
 - Support for custom messages
 - Environment variable configuration
 
+## Installation Overview
+
+1. Grab the code.
+2. Install dependencies.
+3. Create a Pushover account and an application.
+4. Configure Pushover credentials.
+5. Add hooks to Claude Code.
+
 ## Installation
 
 1. Install dependencies:
