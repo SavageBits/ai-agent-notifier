@@ -2,12 +2,19 @@ import requests
 import time
 import os
 from typing import Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class NotificationApp:
     def __init__(self, user_key: Optional[str] = None, api_token: Optional[str] = None):
-        self.user_key = user_key or os.getenv('PUSHOVER_USER_KEY', 'ub25psac18b2gz7qhgd7s6hr2sg1zq')
-        self.api_token = api_token or os.getenv('PUSHOVER_API_TOKEN', 'ajp8ouohjzi6tff2a55sri3bqox3hf')
+        self.user_key = user_key or os.getenv('PUSHOVER_USER_KEY')
+        self.api_token = api_token or os.getenv('PUSHOVER_API_TOKEN')
+        
+        if not self.user_key or not self.api_token:
+            raise ValueError("Pushover credentials not found. Please set PUSHOVER_USER_KEY and PUSHOVER_API_TOKEN in your .env file.")
         self.base_url = 'https://api.pushover.net/1/messages.json'
         self.max_retries = 3
         self.retry_delay = 1

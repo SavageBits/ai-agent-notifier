@@ -17,10 +17,19 @@ A lightweight Python notification app that integrates with Claude Code to send r
 pip install -r tools/notifier/requirements.txt
 ```
 
-2. (Optional) Set environment variables for your Pushover credentials:
+2. Configure your Pushover credentials:
 ```bash
-export PUSHOVER_USER_KEY="your_user_key"
-export PUSHOVER_API_TOKEN="your_api_token"
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env file with your actual Pushover credentials
+# Replace the placeholder values with your actual keys
+```
+
+The `.env` file should contain:
+```
+PUSHOVER_USER_KEY=your_actual_user_key
+PUSHOVER_API_TOKEN=your_actual_api_token
 ```
 
 ## Usage
@@ -167,12 +176,16 @@ This app uses Pushover to send reliable push notifications to your mobile device
 2. Create account at https://pushover.net
 3. Use the provided credentials or configure your own
 
-**Default Configuration:**
-- **User Key**: `ub25psac18b2gz7qhgd7s6hr2sg1zq`
-- **API Token**: `ajp8ouohjzi6tff2a55sri3bqox3hf`
+**Configuration:**
+The app automatically loads credentials from the `.env` file in the project root. To get your Pushover credentials:
 
-**Custom Configuration:**
-Override with your own credentials using environment variables:
+1. Go to https://pushover.net and create an account
+2. Your **User Key** is displayed on the main dashboard
+3. Create a new **Application** to get your **API Token**
+4. Add both to your `.env` file
+
+**Environment Variables:**
+You can also set credentials using environment variables:
 ```bash
 export PUSHOVER_USER_KEY="your_user_key"
 export PUSHOVER_API_TOKEN="your_api_token"
