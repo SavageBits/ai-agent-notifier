@@ -115,12 +115,73 @@ python tools/notifier/test_notifications.py
 
 The test script will send sample notifications to verify the setup.
 
+## Claude Code Hook Configuration
+
+To automatically receive notifications when Claude Code is waiting for input or completes tasks, configure Claude Code hooks:
+
+### Setting Up Hooks
+
+1. **Notification Hook** (triggers when Claude Code is waiting for input):
+```bash
+claude hooks add notification "python3 -c \"import tools.notifier.notification_app; tools.notifier.notification_app.notify_waiting()\""
+```
+
+2. **Stop Hook** (triggers when Claude Code completes a task):
+```bash
+claude hooks add stop "python3 -c \"import tools.notifier.notification_app; tools.notifier.notification_app.notify_done()\""
+```
+
+### Alternative Hook Setup
+
+You can also configure hooks using the `/hooks` command within Claude Code:
+
+```
+/hooks
+```
+
+Then add:
+- **Notification hook**: `python3 -c "import tools.notifier.notification_app; tools.notifier.notification_app.notify_waiting()"`
+- **Stop hook**: `python3 -c "import tools.notifier.notification_app; tools.notifier.notification_app.notify_done('Task completed')"`
+
+### Verifying Hooks
+
+Check your current hooks with:
+```bash
+claude hooks list
+```
+
+### Removing Hooks
+
+To remove hooks if needed:
+```bash
+claude hooks remove notification
+claude hooks remove stop
+```
+
+## Pushover Setup
+
+This app uses Pushover to send reliable push notifications to your mobile device.
+
+**Setup Steps:**
+1. Install Pushover app on your device
+2. Create account at https://pushover.net
+3. Use the provided credentials or configure your own
+
+**Default Configuration:**
+- **User Key**: `ub25psac18b2gz7qhgd7s6hr2sg1zq`
+- **API Token**: `ajp8ouohjzi6tff2a55sri3bqox3hf`
+
+**Custom Configuration:**
+Override with your own credentials using environment variables:
+```bash
+export PUSHOVER_USER_KEY="your_user_key"
+export PUSHOVER_API_TOKEN="your_api_token"
+```
+
 ## Configuration
 
 The app uses the following configuration:
 
-- **Default User Key**: `ub25psac18b2gz7qhgd7s6hr2sg1zq`
-- **Default API Token**: `ajp8ouohjzi6tff2a55sri3bqox3hf`
 - **Retry Logic**: 3 attempts with 1-second delays
 - **Timeout**: 10 seconds per request
 
